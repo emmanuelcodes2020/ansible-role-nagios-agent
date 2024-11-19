@@ -1,0 +1,53 @@
+---
+- name: Download NRPE
+  get_url:
+    url: https://github.com/NagiosEnterprises/nrpe/releases/download/nrpe-4.0.3/nrpe-4.0.3.tar.gz
+    dest: /tmp/nrpe-4.0.3.tar.gz
+
+- name: Extract NRPE
+  unarchive:
+    src: /tmp/nrpe-4.0.3.tar.gz
+    dest: /tmp/
+    remote_src: yes
+
+
+- name: Compile and Install NRPE
+  shell:
+    cmd: |
+      ./configure
+      make all
+      make install-groups-users
+      make install
+      make install-config
+      make install-inetd
+  args:
+    chdir: /tmp/nrpe-4.0.3
+
+
+
+- name: Download Nagios Plugins
+  get_url:
+    url: https://nagios-plugins.org/download/nagios-plugins-2.3.3.tar.gz
+    dest: /tmp/nagios-plugins-2.3.3.tar.gz
+
+- name: Extract Nagios Plugins
+  unarchive:
+    src: /tmp/nagios-plugins-2.3.3.tar.gz
+    dest: /tmp/
+    remote_src: yes
+
+- name: Compile and install Nagios Plugins
+  shell: |
+    cd /tmp/nagios-plugins-2.3.3
+    ./configure
+    make
+    make install
+
+- name: Configure NRPE
+  template:
+    src: "roles/ansible-role-nagios-agent/templates/nrpe.cfg.j2"
+    dest: /usr/local/nagios/etc/nrpe.cfg
+    mode: '0644'
+  #notify: restart nrpe
+
+

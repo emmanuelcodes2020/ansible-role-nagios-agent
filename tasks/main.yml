@@ -1,0 +1,17 @@
+---
+# tasks file for ansible-role-nagios-agent
+- include_tasks: package.yml
+  tags: 
+    - nagios-agent
+    - nagios_package
+
+
+- include_tasks: prepare.yml
+  tags: 
+    - nagios-agent
+    - nagios_prepare
+
+- include_tasks: service.yml
+  tags: 
+    - nagios-agent
+    - nagios_service

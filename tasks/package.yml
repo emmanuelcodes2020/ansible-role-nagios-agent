@@ -1,0 +1,15 @@
+- name: Install required dependencies
+  yum:
+      name:
+        - gcc
+        - glibc
+        - glibc-common
+        - openssl
+        - openssl-devel
+        - perl
+        - wget
+        - make
+        - automake
+        - libtool
+        - systemd-devel
+      state: present

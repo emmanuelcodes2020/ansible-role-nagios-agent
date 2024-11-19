@@ -1,0 +1,6 @@
+---
+- name: Ensure NRPE service is enabled and started
+  systemd:
+    name: nrpe
+    enabled: yes
+    state: started

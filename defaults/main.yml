@@ -1,0 +1,5 @@
+---
+# defaults file for ansible-role-nagios-agent
+nagios_server_ip: "3.8.205.218"
+nagios_jinja_template_dest : "/usr/local/nagios/etc/nrpe.cfg"
+nagios_jinja_relative_path: "roles/ansible-role-nagios-agent/templates/nrpe.cfg.j2"
